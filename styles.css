@@ -12,12 +12,18 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 21cm; /* Largura A4 */
     margin: 0 auto;
     background-color: white;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.a4-page {
+    min-height: 29.7cm; /* Altura A4 */
+    padding: 2cm;
+    position: relative;
 }
 
 header {
@@ -30,6 +36,7 @@ header {
 h1 {
     color: #333;
     margin-bottom: 20px;
+    font-size: 24px;
 }
 
 .header-info {
@@ -52,6 +59,41 @@ h1 {
 .date-info input {
     width: 150px;
     font-family: Arial, sans-serif;
+}
+
+.passageiro-destaque {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 2px solid #4CAF50;
+}
+
+.passageiro-destaque label {
+    color: #2E7D32;
+    font-size: 1.1em;
+}
+
+.passageiro-destaque input {
+    font-size: 1.2em;
+    padding: 12px;
+    font-weight: 500;
+}
+
+.form-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.section-title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
 }
 
 .form-group {
@@ -106,6 +148,11 @@ input::placeholder {
     color: #999;
 }
 
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
 .button-group {
     margin-top: 30px;
     display: flex;
@@ -145,19 +192,45 @@ input::placeholder {
     body {
         background: white;
         padding: 0;
+        margin: 0;
     }
 
     .container {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
         box-shadow: none;
-        padding: 20px;
+    }
+
+    .a4-page {
+        padding: 1.5cm;
+        margin: 0;
     }
 
     .button-group {
         display: none;
     }
+
+    .passageiro-destaque {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .form-section {
+        page-break-inside: avoid;
+    }
 }
 
 @media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    .a4-page {
+        padding: 15px;
+        min-height: auto;
+    }
+
     .header-info {
         flex-direction: column;
         gap: 15px;
@@ -176,7 +249,8 @@ input::placeholder {
         gap: 0;
     }
 
-    .container {
-        padding: 20px;
+    .passageiro-destaque {
+        margin: 15px 0;
+        padding: 15px;
     }
 } 

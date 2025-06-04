@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <div id="printArea">
+        <div id="printArea" class="a4-page">
             <header>
                 <h1>Ordem de Serviço - Transporte</h1>
                 <div class="header-info">
@@ -25,6 +25,11 @@
             </header>
 
             <form id="transportForm">
+                <div class="passageiro-destaque">
+                    <label for="passageiro">Nome do Passageiro:</label>
+                    <input type="text" id="passageiro" name="passageiro" required>
+                </div>
+
                 <div class="form-row">
                     <div class="form-group half">
                         <label for="telefone">Telefone:</label>
@@ -44,36 +49,36 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="origem">Origem:</label>
-                    <input type="text" id="origem" name="origem" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="destino">Destino:</label>
-                    <input type="text" id="destino" name="destino" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="passageiro">Nome do Passageiro:</label>
-                    <input type="text" id="passageiro" name="passageiro" required>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group half">
-                        <label for="numPessoas">Número de Pessoas:</label>
-                        <input type="number" id="numPessoas" name="numPessoas" min="1" required>
+                <div class="form-section">
+                    <div class="section-title">Informações do Transporte</div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="origem">Origem:</label>
+                            <input type="text" id="origem" name="origem" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="destino">Destino:</label>
+                            <input type="text" id="destino" name="destino" required>
+                        </div>
                     </div>
 
-                    <div class="form-group half">
-                        <label for="numMalas">Número de Malas:</label>
-                        <input type="number" id="numMalas" name="numMalas" min="0" required>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="numPessoas">Número de Pessoas:</label>
+                            <input type="number" id="numPessoas" name="numPessoas" min="1" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="numMalas">Número de Malas:</label>
+                            <input type="number" id="numMalas" name="numMalas" min="0" required>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="observacoes">Observações:</label>
-                    <textarea id="observacoes" name="observacoes" rows="3"></textarea>
+                <div class="form-section">
+                    <div class="section-title">Observações</div>
+                    <div class="form-group">
+                        <textarea id="observacoes" name="observacoes" rows="3"></textarea>
+                    </div>
                 </div>
             </form>
         </div>
