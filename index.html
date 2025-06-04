@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordem de Serviço - Transporte</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="printArea">
+            <header>
+                <h1>Ordem de Serviço - Transporte</h1>
+                <div class="header-info">
+                    <div class="empresa-info">
+                        <label for="empresa">Empresa:</label>
+                        <input type="text" id="empresa" name="empresa" required>
+                    </div>
+                    <div class="date-info">
+                        <label for="data">Data:</label>
+                        <input type="date" id="data" name="data" required>
+                    </div>
+                </div>
+            </header>
+
+            <form id="transportForm">
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="telefone">Telefone:</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="pagamento">Forma de Pagamento:</label>
+                        <select id="pagamento" name="pagamento" required>
+                            <option value="">Selecione...</option>
+                            <option value="dinheiro">Dinheiro</option>
+                            <option value="pix">PIX</option>
+                            <option value="cartao_credito">Cartão de Crédito</option>
+                            <option value="cartao_debito">Cartão de Débito</option>
+                            <option value="transferencia">Transferência Bancária</option>
+                            <option value="faturado">Faturado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="origem">Origem:</label>
+                    <input type="text" id="origem" name="origem" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="destino">Destino:</label>
+                    <input type="text" id="destino" name="destino" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="passageiro">Nome do Passageiro:</label>
+                    <input type="text" id="passageiro" name="passageiro" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="numPessoas">Número de Pessoas:</label>
+                        <input type="number" id="numPessoas" name="numPessoas" min="1" required>
+                    </div>
+
+                    <div class="form-group half">
+                        <label for="numMalas">Número de Malas:</label>
+                        <input type="number" id="numMalas" name="numMalas" min="0" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="observacoes">Observações:</label>
+                    <textarea id="observacoes" name="observacoes" rows="3"></textarea>
+                </div>
+            </form>
+        </div>
+
+        <div class="button-group">
+            <button onclick="gerarPDF()" class="btn btn-primary">Gerar PDF</button>
+            <button onclick="window.print()" class="btn btn-secondary">Imprimir</button>
+            <button onclick="limparFormulario()" class="btn btn-danger">Limpar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
