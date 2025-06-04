@@ -36,6 +36,24 @@ function formatarData(data) {
     return `${dia}/${mes}/${ano}`;
 }
 
+// Função para preparar o conteúdo para impressão
+function prepararConteudo() {
+    const printArea = document.getElementById('printArea');
+    const clone = printArea.cloneNode(true);
+    
+    // Converter inputs e selects para texto
+    clone.querySelectorAll('input, select, textarea').forEach(element => {
+        if (element.type === 'date') {
+            const dataFormatada = formatarData(element.value);
+            element.parentNode.innerHTML = element.parentNode.innerHTML.replace(element.outerHTML, dataFormatada);
+        } else {
+            element.parentNode.innerHTML = element.parentNode.innerHTML.replace(element.outerHTML, element.value);
+        }
+    });
+
+    return clone;
+}
+
 // Função para fazer o download da Ordem de Serviço
 function downloadOS() {
     // Verificar se todos os campos obrigatórios estão preenchidos
@@ -57,42 +75,62 @@ function downloadOS() {
         return;
     }
 
-    const element = document.getElementById('printArea');
+    // Preparar o conteúdo para o PDF
+    const conteudoImpressao = prepararConteudo();
     const empresa = document.getElementById('empresa').value || 'Empresa';
     const data = formatarData(document.getElementById('data').value);
     const passageiro = document.getElementById('passageiro').value;
-    
-    // Configurar opções do PDF
+
+    // Configurações do PDF
     const opt = {
-        margin: [5, 5, 5, 5],
+        margin: 10,
         filename: `OS_Transporte_${empresa}_${passageiro}_${data}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
+        image: { type: 'jpeg', quality: 1 },
         html2canvas: { 
-            scale: 1,
+            scale: 2,
             useCORS: true,
             logging: false,
             letterRendering: true,
-            windowWidth: 800,
-            windowHeight: 1132, // Altura A4 em pixels
+            allowTaint: true,
+            foreignObjectRendering: true
         },
         jsPDF: { 
             unit: 'mm', 
             format: 'a4', 
             orientation: 'portrait',
-            compress: true
-        },
-        pagebreak: { mode: 'avoid-all' }
+            compress: true,
+            precision: 16
+        }
     };
 
-    // Remover margens temporariamente para geração do PDF
-    const originalStyle = element.style.cssText;
-    element.style.padding = '5mm';
+    // Adicionar estilos específicos para o PDF
+    const styleTemp = document.createElement('style');
+    styleTemp.textContent = `
+        #printArea { padding: 20px !important; }
+        .form-section { margin-bottom: 15px !important; }
+        input, select, textarea { border: none !important; }
+    `;
+    conteudoImpressao.appendChild(styleTemp);
+
+    // Criar um container temporário
+    const tempContainer = document.createElement('div');
+    tempContainer.appendChild(conteudoImpressao);
+    document.body.appendChild(tempContainer);
 
     // Gerar e fazer download do PDF
-    html2pdf().set(opt).from(element).save().then(() => {
-        // Restaurar estilo original
-        element.style.cssText = originalStyle;
-    });
+    html2pdf()
+        .set(opt)
+        .from(tempContainer)
+        .save()
+        .then(() => {
+            // Limpar o container temporário
+            document.body.removeChild(tempContainer);
+        })
+        .catch(err => {
+            console.error('Erro ao gerar PDF:', err);
+            alert('Ocorreu um erro ao gerar o PDF. Por favor, tente novamente.');
+            document.body.removeChild(tempContainer);
+        });
 }
 
 // Função para limpar o formulário
