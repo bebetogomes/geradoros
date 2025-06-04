@@ -43,24 +43,37 @@ function gerarPDF() {
     const data = formatarData(document.getElementById('data').value);
     const passageiro = document.getElementById('passageiro').value;
     
+    // Configurar opções do PDF
     const opt = {
-        margin: [10, 10, 10, 10],
+        margin: [5, 5, 5, 5],
         filename: `OS_Transporte_${empresa}_${passageiro}_${data}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
-            scale: 2,
+            scale: 1,
             useCORS: true,
-            logging: false
+            logging: false,
+            letterRendering: true,
+            windowWidth: 800,
+            windowHeight: 1132, // Altura A4 em pixels
         },
         jsPDF: { 
             unit: 'mm', 
             format: 'a4', 
-            orientation: 'portrait'
-        }
+            orientation: 'portrait',
+            compress: true
+        },
+        pagebreak: { mode: 'avoid-all' }
     };
 
+    // Remover margens temporariamente para geração do PDF
+    const originalStyle = element.style.cssText;
+    element.style.padding = '5mm';
+
     // Gerar PDF
-    html2pdf().set(opt).from(element).save();
+    html2pdf().set(opt).from(element).save().then(() => {
+        // Restaurar estilo original
+        element.style.cssText = originalStyle;
+    });
 }
 
 // Função para limpar o formulário
