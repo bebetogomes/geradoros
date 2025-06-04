@@ -6,6 +6,7 @@
     <title>Ordem de Serviço - Transporte</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
@@ -84,9 +85,15 @@
         </div>
 
         <div class="button-group">
-            <button onclick="gerarPDF()" class="btn btn-primary">Gerar PDF</button>
-            <button onclick="window.print()" class="btn btn-secondary">Imprimir</button>
-            <button onclick="limparFormulario()" class="btn btn-danger">Limpar</button>
+            <button onclick="downloadOS()" class="btn btn-primary">
+                <i class="fas fa-download"></i> Download OS
+            </button>
+            <button onclick="window.print()" class="btn btn-secondary">
+                <i class="fas fa-print"></i> Imprimir
+            </button>
+            <button onclick="limparFormulario()" class="btn btn-danger">
+                <i class="fas fa-eraser"></i> Limpar
+            </button>
         </div>
     </div>
 

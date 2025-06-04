@@ -255,4 +255,17 @@ textarea {
         margin: 10px 0;
         padding: 10px;
     }
+}
+
+.campo-erro {
+    border-color: #f44336 !important;
+    background-color: #fff8f8 !important;
+}
+
+.campo-erro:focus {
+    box-shadow: 0 0 5px rgba(244, 67, 54, 0.2) !important;
+}
+
+.btn i {
+    margin-right: 8px;
 } 

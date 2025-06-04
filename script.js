@@ -36,8 +36,27 @@ function formatarData(data) {
     return `${dia}/${mes}/${ano}`;
 }
 
-// Função para gerar PDF
-function gerarPDF() {
+// Função para fazer o download da Ordem de Serviço
+function downloadOS() {
+    // Verificar se todos os campos obrigatórios estão preenchidos
+    const form = document.getElementById('transportForm');
+    const inputs = form.querySelectorAll('input[required], select[required]');
+    let todosPreenchidos = true;
+
+    inputs.forEach(input => {
+        if (!input.value) {
+            todosPreenchidos = false;
+            input.classList.add('campo-erro');
+        } else {
+            input.classList.remove('campo-erro');
+        }
+    });
+
+    if (!todosPreenchidos) {
+        alert('Por favor, preencha todos os campos obrigatórios antes de fazer o download.');
+        return;
+    }
+
     const element = document.getElementById('printArea');
     const empresa = document.getElementById('empresa').value || 'Empresa';
     const data = formatarData(document.getElementById('data').value);
@@ -69,7 +88,7 @@ function gerarPDF() {
     const originalStyle = element.style.cssText;
     element.style.padding = '5mm';
 
-    // Gerar PDF
+    // Gerar e fazer download do PDF
     html2pdf().set(opt).from(element).save().then(() => {
         // Restaurar estilo original
         element.style.cssText = originalStyle;
@@ -87,6 +106,10 @@ function limparFormulario() {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     document.getElementById('data').value = `${year}-${month}-${day}`;
+
+    // Remover classes de erro
+    const inputs = document.querySelectorAll('.campo-erro');
+    inputs.forEach(input => input.classList.remove('campo-erro'));
 }
 
 // Validar campos numéricos para não aceitar valores negativos
